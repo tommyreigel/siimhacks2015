@@ -2,6 +2,11 @@
 
 This project was created from the angular-seed repo
 
+##Description
+[http://siim.org/?page=15hacking_healthcare](SIIM 2015 Hackathon Website)
+
+More description to follow
+
 ## Getting Started
 
 To get you started you can simply clone the repository and install the dependencies:
