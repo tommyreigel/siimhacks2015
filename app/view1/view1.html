@@ -1,6 +1,15 @@
 <p>This is the partial for view 1.</p>
 {{specialties[0].count}}
 
+<!--<div id="patient-info">-->
+  <!--<div>{{ patient.name[0].family[0] }}, {{ patient.name[0].given[0] }} </div>-->
+  <!--<div> </div>-->
+<!--</div>-->
+
+<!--<div id="worklist">-->
+  <!--<div {{worklist[0].-->
+<!--</div>-->
+
 <select ng-options="item.specialty as item.specialtyName for item in specialties" ng-model="selectedSpecialtyId" ng-change="updateTemplates()">
 </select>
 
