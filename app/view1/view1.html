@@ -1,1 +1,14 @@
 <p>This is the partial for view 1.</p>
+{{specialties[0].count}}
+
+<select ng-options="item.specialty as item.specialtyName for item in specialties" ng-model="selectedSpecialtyId" ng-change="updateTemplates()">
+</select>
+
+<select ng-options="item.id as item.title for item in templates" ng-model="selectedTemplateId" ng-change="updateSelectedTemplate()">
+</select>
+
+<div class="template">
+  <span class="title">{{ selectedTemplate.title }}</span>
+<span class="body">{{ selectedTemplate.templateData }}</span>
+ <div id="templateIframe"> </div>
+</div>
