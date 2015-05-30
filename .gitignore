@@ -1,3 +1,4 @@
+*.swp
 logs/*
 !.gitkeep
 node_modules/
