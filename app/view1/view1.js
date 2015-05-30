@@ -11,30 +11,28 @@ angular.module('myApp.view1', ['ngRoute'])
 
 .controller('View1Ctrl', ['$scope', '$http', function($scope, $http) {
 
-  var imagingStudyURL = fhirURL + 'ImagingStudy?accession=2508258761846499';
-  var fhirURL = "http://fhir.hackathon.siim.org/fhir/",
-      reportsURL = fhirURL + "DiagnosticReport?subject=Patient/siimandy",
-      studiesURL = "https://vna.hackathon.siim.org/dcm4chee-arc/qido/DCM4CHEE/studies/?00100020=TCGA-50-5072",
-      worklistURL = 'https://vna.hackathon.siim.org/dcm4chee-arc/qido/DCM4CHEE/studies/?00100010=SIIM&includefield=ALL&limit=10';
+  //SETUP
+  //limit to 10 items in the worklist
+  var worklistURL = 'https://vna.hackathon.siim.org/dcm4chee-arc/qido/DCM4CHEE/studies/?00100010=SIIM&includefield=ALL&limit=10',
+      dcmMapping = {
+          '00080050': 'accession',
+          '00080061': 'modality',
+          '00100010': 'name',
+         '00100020' : 'mrn',
+         '00080020' : 'date',
+         '00080030' : 'time',
+         '00101010' : 'age',
+          '00081030': 'procedure'
+        };
 
   $scope.showworklist = true;
-
-  //limit to 5 items in the worklist
-  //iterate over the worklist and create data
-  var dcmMapping = {
-    '00080050': 'accession',
-    '00080061': 'modality',
-    '00100010': 'name',
-   '00100020' : 'mrn',
-   '00080020' : 'date',
-   '00080030' : 'time',
-   '00101010' : 'age',
-    '00081030': 'procedure'
-  }
-
   $(".spinner").show();
+  //END SETUP
+
   $http.get(worklistURL).success(function(data){
     var worklist = [];
+
+    //iterate over the worklist and create data
     _.each(data, function(item){
       var worklistItem = {};
       //map the dicom fields
@@ -80,6 +78,7 @@ angular.module('myApp.view1', ['ngRoute'])
     $scope.$apply();
   });
 
+  //Select one of the worklist items
   $scope.selectWorkItem = function(workItem){
     var items = _.filter($scope.specialties, function(specialty){
       return specialty.specialty == workItem.modality
@@ -96,17 +95,20 @@ angular.module('myApp.view1', ['ngRoute'])
     $scope.showworklist = false;
   }
 
+  //Fetch specialties
   $http.get('http://127.0.0.1:1337/json/specialty/').success(function(data) {
     $scope.specialties = data.response.specialties;
     $scope.selectedSpecialtyId = _.first($scope.specialties).specialty;
   });
 
+  //Fetch Templates for specialty
   $scope.updateTemplates = function(){
     $http.get('http://127.0.0.1:1337/json/?specialty=' + $scope.selectedSpecialtyId).success(function(data) {
       $scope.templates = data.response.template
     })
   };
 
+  //Handle Template Selection
   $scope.updateSelectedTemplate = function(){
     $("#templateIframe").empty();
     $(".completeReport").hide();
