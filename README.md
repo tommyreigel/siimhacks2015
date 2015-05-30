@@ -39,9 +39,9 @@ it easier to serve the files by a webserver.*
 You will need to run the custom mini CORS proxy to prevent CORS issues
 ```
 node custom_proxy/proxy.js
+```
 
-We have preconfigured the project with a simple development web server.  The simplest way to start
-this server is:
+Start the Server
 
 ```
 npm start
