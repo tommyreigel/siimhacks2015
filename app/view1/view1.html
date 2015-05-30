@@ -1,23 +1,75 @@
-<p>This is the partial for view 1.</p>
-{{specialties[0].count}}
+<div class="animate-show" ng-show="showworklist">
+  <h1> Your Worklist </h1>
+  <h2> Select a Study </h2>
+  <table class="table .table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Accession</th>
+      <th>Modality</th>
+      <th>MRN</th>
+      <th>Age</th>
+      <th>Procedure</th>
+      <th>Date</th>
 
-<!--<div id="patient-info">-->
-  <!--<div>{{ patient.name[0].family[0] }}, {{ patient.name[0].given[0] }} </div>-->
-  <!--<div> </div>-->
-<!--</div>-->
-
-<!--<div id="worklist">-->
-  <!--<div {{worklist[0].-->
-<!--</div>-->
-
-<select ng-options="item.specialty as item.specialtyName for item in specialties" ng-model="selectedSpecialtyId" ng-change="updateTemplates()">
-</select>
-
-<select ng-options="item.id as item.title for item in templates" ng-model="selectedTemplateId" ng-change="updateSelectedTemplate()">
-</select>
-
-<div class="template">
-  <span class="title">{{ selectedTemplate.title }}</span>
-<span class="body">{{ selectedTemplate.templateData }}</span>
- <div id="templateIframe"> </div>
+    </tr>
+    <tr ng-repeat="workItem in worklist" ng-click="selectWorkItem(workItem)">
+      <td>{{ workItem.name }}</td>
+      <td>{{ workItem.accession }}</td>
+      <td>{{ workItem.modality }}</td>
+      <td>{{ workItem.mrn }}</td>
+      <td>{{ workItem.age }}</td>
+      <td>{{ workItem.procedure }}</td>
+      <td>{{ workItem.date }}</td>
+    </tr>
+  </table>
 </div>
+<div class="animate-show" ng-hide="showworklist">
+  <table class="table .table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Accession</th>
+      <th>Modality</th>
+      <th>MRN</th>
+      <th>Age</th>
+      <th>Procedure</th>
+      <th>Date</th>
+
+    </tr>
+    <tr >
+      <td>{{ selectedWorkItem.name }}</td>
+      <td>{{ selectedWorkItem.accession }}</td>
+      <td>{{ selectedWorkItem.modality }}</td>
+      <td>{{ selectedWorkItem.mrn }}</td>
+      <td>{{ selectedWorkItem.age }}</td>
+      <td>{{ selectedWorkItem.procedure }}</td>
+      <td>{{ selectedWorkItem.date }}</td>
+    </tr>
+  </table>
+  <button class="btn btn-primary showWorklist"> View Worklist</button>
+
+  <select ng-options="item.specialty as item.specialtyName for item in specialties" ng-model="selectedSpecialtyId" ng-change="updateTemplates()">
+  </select>
+
+  <select ng-options="item.id as item.title for item in templates" ng-model="selectedTemplateId" ng-change="updateSelectedTemplate()">
+  </select>
+
+  <div class="animate-show" ng-hide="hideTemplate">
+    <div class="template">
+      <span class="title">{{ selectedTemplate.title }}</span>
+    <span class="body">{{ selectedTemplate.templateData }}</span>
+     <div id="templateIframe" style="padding-left: 20px"> </div>
+    </div>
+
+    <button style="display: none" class="btn btn-primary completeReport">Complete Report</button>
+  </div>
+
+  <div class="animate-show" ng-show="showReport">
+    <h2> RADIOLOGY REPORT </h2>
+    <h3> Hackaton Hospital </h3>
+
+    <div class="report-item" ng-repeat="reportItem in report">
+      <span class="name" style="font-weight: bold">{{reportItem.name}}</span>:  <span class="value">{{reportItem.value}}</span>
+    </div>
+  </div>
+</div>
+<div style="font-size: 20px; display:none" class="spinner"><i class="fa fa-spinner fa-spin"></i></div>
