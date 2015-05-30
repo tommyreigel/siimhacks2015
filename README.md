@@ -3,7 +3,7 @@
 This project was created from the angular-seed repo
 
 ##Description
-[http://siim.org/?page=15hacking_healthcare](SIIM 2015 Hackathon Website)
+[http://siim.org/?page=15hacking_healthcare](http://siim.org/?page=15hacking_healthcare)
 
 More description to follow
 
